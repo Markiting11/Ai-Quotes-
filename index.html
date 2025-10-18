@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF--8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Quote Frame Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .font-urdu {
+        font-family: 'Noto Nastaliq Urdu', serif;
+      }
+    </style>
+    <!-- 
+      The script below fetches the Google Fonts stylesheet and inlines it into a <style> tag.
+      This is a workaround to fix a CORS (Cross-Origin Resource Sharing) issue with the 
+      'html-to-image' library. The library cannot read the contents of stylesheets loaded 
+      from a different domain (like fonts.googleapis.com), which causes an error during 
+      the image download process. By fetching the CSS via JavaScript and injecting it 
+      directly into the document, we make it a same-origin stylesheet, allowing 
+      'html-to-image' to access its rules and render the fonts correctly in the downloaded image.
+    -->
+    <script>
+      const fontUrl = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap';
+      fetch(fontUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Failed to fetch font CSS: ${response.statusText}`);
+          }
+          return response.text();
+        })
+        .then(cssText => {
+          const style = document.createElement('style');
+          style.textContent = cssText;
+          document.head.appendChild(style);
+        })
+        .catch(err => console.error('Failed to fetch and inline Google Fonts:', err));
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.25.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.min.js"></script>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

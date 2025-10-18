@@ -1,0 +1,5 @@
+{
+  "name": "AI Quote Frame Generator",
+  "description": "An application that generates personalized quote frames. Users can upload a picture, provide a topic for an AI-generated quote in multiple languages (English, Urdu, Roman Urdu), and customize the background color, text color, and font size for a unique design.",
+  "requestFramePermissions": []
+}
