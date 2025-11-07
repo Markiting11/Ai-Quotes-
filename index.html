@@ -12,6 +12,29 @@
       .font-urdu {
         font-family: 'Noto Nastaliq Urdu', serif;
       }
+      .font-playfair {
+        font-family: 'Playfair Display', serif;
+      }
+      .font-merriweather {
+        font-family: 'Merriweather', serif;
+      }
+      .font-lobster {
+        font-family: 'Lobster', cursive;
+      }
+      .font-lato {
+        font-family: 'Lato', sans-serif;
+      }
+      @keyframes pulse-opacity {
+        0%, 100% {
+          opacity: 0.1;
+        }
+        50% {
+          opacity: 0.25;
+        }
+      }
+      .animate-pulse-opacity {
+        animation: pulse-opacity 5s ease-in-out infinite;
+      }
     </style>
     <!-- 
       The script below fetches the Google Fonts stylesheet and inlines it into a <style> tag.
@@ -23,7 +46,7 @@
       'html-to-image' to access its rules and render the fonts correctly in the downloaded image.
     -->
     <script>
-      const fontUrl = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap';
+      const fontUrl = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Nastaliq+Urdu:wght@400;700&family=Playfair+Display:wght@400;700&family=Merriweather:wght@400;700&family=Lobster&family=Lato:wght@400;700&display=swap';
       fetch(fontUrl)
         .then(response => {
           if (!response.ok) {

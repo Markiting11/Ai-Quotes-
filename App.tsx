@@ -70,6 +70,47 @@ const App: React.FC = () => {
     }
   }, []);
 
+  const handleShare = useCallback(async () => {
+    if (!frameRef.current) {
+        setError('Could not capture frame for sharing.');
+        return;
+    }
+    // Check if the Web Share API is supported by the browser
+    if (!navigator.share) {
+        setError('The Web Share API is not supported by your browser.');
+        return;
+    }
+    setError(null);
+
+    try {
+        const blob = await htmlToImage.toBlob(frameRef.current, { pixelRatio: 2 });
+        if (!blob) {
+            throw new Error('Failed to create image blob for sharing.');
+        }
+
+        const file = new File([blob], 'quote-frame.png', { type: 'image/png' });
+        const shareData = {
+            title: 'AI Generated Quote',
+            text: 'Check out this quote frame I created!',
+            files: [file],
+        };
+
+        // Check if the browser can share this data
+        if (navigator.canShare && navigator.canShare(shareData)) {
+            await navigator.share(shareData);
+        } else {
+            // This case is unlikely if navigator.share exists but it's a good fallback
+            throw new Error('This content cannot be shared on your device.');
+        }
+    } catch (err: any) {
+        // Don't show an error if the user cancels the share dialog
+        if (err.name !== 'AbortError') {
+            console.error('Share failed:', err);
+            setError('Sorry, the frame could not be shared.');
+        }
+    }
+  }, []);
+
 
   const displayQuote = useCustomQuote ? customQuote : generatedQuote;
 
@@ -114,6 +155,7 @@ const App: React.FC = () => {
               customQuote={customQuote}
               setCustomQuote={setCustomQuote}
               handleDownload={handleDownload}
+              handleShare={handleShare}
             />
           </div>
           <div className="flex items-center justify-center">
